@@ -16,9 +16,9 @@ KODI_MONITOR   = xbmc.Monitor()
 # COLLECTION     = ADDON.getSetting("Collection").encode("utf-8")
 ANIMATION      = 'nope' #if ADDON.getSetting("Animate") == 'true' else 'nope'
 TIME           = 'okay' #if ADDON.getSetting("Time") == 'true' else 'nope'
-TIMER          = 10 #[30,60,120,240][int(ADDON.getSetting("RotateTime"))]
+# TIMER          = 10 #[30,60,120,240][int(ADDON.getSetting("RotateTime"))]
 # KEYWORDS       = urllib.quote(ADDON.getSetting("Keywords").encode("utf-8"))
-# RES            = ['1280x720','1920x1080','3840x2160'][int(ADDON.getSetting("Resolution"))]
+RES            = ['1280x720','1920x1080','3840x2160'][int(ADDON.getSetting("Resolution"))]
 # PHOTO_TYPE     = ['featured','random','user','collection'][int(ADDON.getSetting("PhotoType"))]
 
 # URL_PARAMS     = '/%s'%PHOTO_TYPE
@@ -60,7 +60,7 @@ class GUI(xbmcgui.WindowXMLDialog):
     def setImage(self, id):
         self.log("loading... image")
         self.openURL(random.choice(self.imageLinks), id)
-        self.log("image downloaded")
+        #self.log("image downloaded")
         # image = image if len(image) > 0 else self.openURL(IMAGE_URL)
         filepath = os.path.join(BASE_PATH, "image" + str(id) + ".jpg")
         if xbmcvfs.exists(filepath):
@@ -107,7 +107,7 @@ class GUI(xbmcgui.WindowXMLDialog):
             # url = page.geturl()
             # self.log("openURL return url = " + url)
             # return r.content
-        # except urllib2.URLError, e: self.log("openURL Failed! " + str(e), xbmc.LOGERROR)
+         except urllib2.URLError, e: self.log("openURL Failed! " + str(e), xbmc.LOGERROR)
         # except socket.timeout, e: self.log("openURL Failed! " + str(e), xbmc.LOGERROR)
         except Exception,e:
             self.log("connection failed! " + str(e), xbmc.LOGERROR)
